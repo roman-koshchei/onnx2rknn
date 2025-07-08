@@ -1,0 +1,10 @@
+[project]
+name = "onnx2rknn"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["rknn-toolkit2", "setuptools>=80.9.0"]
+
+[tool.uv.sources]
+rknn-toolkit2 = { path = "wheels/rknn_toolkit2-2.3.2-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl" }
