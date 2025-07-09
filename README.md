@@ -1,7 +1,7 @@
 # ONNX to RKNN
 
 This is script to convert PP-YOLOE model from ONNX format to RKNN format.
-Must be run on hardware with Rockchip chips.
+Must be run on hardware with Rockchip chips rk3588 rk3576.
 
 Install dependencies:
 
@@ -12,5 +12,5 @@ uv sync
 Run script:
 
 ```bash
-uv run main.py --dataset {dataset.txt path} --model {onnx model path} --platform {rk3588/rk3576} {--no_nms}
+uv run main.py --dataset {dataset.txt path} --model {onnx model path} --platform {rk3588/rk3576}
 ```

@@ -14,15 +14,11 @@ def main():
         help="Target platform (default: rk3588)",
     )
     parser.add_argument("--dataset", type=str, help="Path to dataset txt file")
-    parser.add_argument(
-        "--no_nms", action="store_true", help="Model exported without NMS"
-    )
     args = parser.parse_args()
 
     model_path = args.model
     platform = args.platform
     dataset = args.dataset
-    no_nms = args.no_nms
     print(f"Convert ONNX model to RKNN format: {model_path}")
 
     rknn = RKNN(verbose=True)
@@ -37,22 +33,9 @@ def main():
     print("Configured model successfully")
 
     print("Loading ONNX model")
-    if no_nms:
-        print("Loading for without NMS")
-        ret = rknn.load_onnx(
-            model=model_path, inputs=["image"], input_size_list=[[1, 3, 640, 640]]
-        )
-    else:
-        print("Loading for with NMS")
-        ret = rknn.load_onnx(
-            model=model_path,
-            inputs=["image", "im_shape", "scale_factor"],
-            input_size_list=[
-                [1, 3, 640, 640],  # image
-                [1, 2],  # im_shape
-                [1, 2],  # scale_factor
-            ],
-        )
+    ret = rknn.load_onnx(
+        model=model_path, inputs=["image"], input_size_list=[[1, 3, 640, 640]]
+    )
     if ret != 0:
         print("Load model failed!")
         exit(ret)
