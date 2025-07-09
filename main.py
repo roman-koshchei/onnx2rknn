@@ -38,12 +38,12 @@ def main():
 
     print("Loading ONNX model")
     if no_nms:
-        # For models exported without NMS, only image input is needed
+        print("Loading for without NMS")
         ret = rknn.load_onnx(
             model=model_path, inputs=["image"], input_size_list=[[1, 3, 640, 640]]
         )
     else:
-        # For models with NMS, need all three inputs
+        print("Loading for with NMS")
         ret = rknn.load_onnx(
             model=model_path,
             inputs=["image", "im_shape", "scale_factor"],
