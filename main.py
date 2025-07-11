@@ -58,7 +58,9 @@ def main():
     print("Model is built successfully")
 
     print("Export RKNN model")
-    output_path = os.path.splitext(model_path)[0] + ".rknn"
+    base_name = os.path.splitext(model_path)[0]
+    quant_suffix = "i8" if do_quantization else "fp16"
+    output_path = f"{base_name}-{platform}-{quant_suffix}.rknn"
     ret = rknn.export_rknn(output_path)
     if ret != 0:
         print("Export rknn model failed!")
