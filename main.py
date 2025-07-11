@@ -13,7 +13,9 @@ def main():
         default="rk3588",
         help="Target platform (default: rk3588)",
     )
-    parser.add_argument("--dataset", type=str, help="Path to dataset txt file")
+    parser.add_argument(
+        "--dataset", type=str, help="Path to dataset txt file (optional)"
+    )
     args = parser.parse_args()
 
     model_path = args.model
@@ -42,7 +44,14 @@ def main():
     print("Loaded model successfully")
 
     print("Building model")
-    ret = rknn.build(do_quantization=True, dataset=dataset, rknn_batch_size=1)
+    do_quantization = dataset is not None
+    if do_quantization:
+        print(f"Using dataset for quantization: {dataset}")
+    else:
+        print("No dataset provided, disabling quantization")
+    ret = rknn.build(
+        do_quantization=do_quantization, dataset=dataset, rknn_batch_size=1
+    )
     if ret != 0:
         print("Build model failed!")
         exit(ret)
